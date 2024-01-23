@@ -1,0 +1,70 @@
+"use client";
+
+import Image from "next/image";
+import { LegacyRef } from "react";
+
+type element = {
+  name: string;
+  logo_url: string;
+  tel?: string;
+};
+
+const RoueDeLaFortune = ({
+  wheelRef,
+  data,
+  logo_offset,
+  logo_size,
+}: {
+  wheelRef: LegacyRef<HTMLDivElement> | undefined;
+  data: element[];
+  logo_offset: number;
+  logo_size: number;
+}) => {
+  const list_length = data.length;
+  const pizza_size = 350;
+  return (
+    <div className="relative">
+      <div className="bg-red-500 w-[30px] h-[50px] absolute z-10 top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 [clip-path:polygon(50%_100%,0%_0%,100%_0%)]"></div>
+      <div
+        ref={wheelRef}
+        style={{ width: pizza_size, height: pizza_size }}
+        className="relative"
+      >
+        <Image
+          src="/pizza.png"
+          alt="pizza"
+          width={pizza_size}
+          height={pizza_size}
+          className="absolute top-0 left-0 -z-10 w-full h-full"
+        />
+        <div className="w-full h-full rounded-full z-0 relative bg-[#00000075]">
+          {data.map((element, index) => (
+            <Image
+              key={index}
+              src={element.logo_url}
+              alt={element.name}
+              width={logo_size}
+              height={logo_size}
+              className="absolute"
+              style={{
+                left:
+                  pizza_size / 2 -
+                  logo_size / 2 +
+                  Math.cos((2 * Math.PI * index) / list_length + Math.PI / 2) *
+                    logo_offset,
+                bottom:
+                  pizza_size / 2 -
+                  logo_size / 2 +
+                  Math.sin((2 * Math.PI * index) / list_length + Math.PI / 2) *
+                    logo_offset,
+                rotate: `-${(360 * index) / list_length}deg`,
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default RoueDeLaFortune;
