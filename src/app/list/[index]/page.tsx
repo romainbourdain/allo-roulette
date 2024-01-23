@@ -1,14 +1,13 @@
 "use client";
 
-import animation from "@/app/animation.json";
 import HomeButton from "@/components/buttons/HomeButton";
 import LaunchButton from "@/components/buttons/LaunchButton";
 import RoueDeLaFortune from "@/components/roue/Roue";
 import { useWheel } from "@/components/roue/useWheel";
 import { Button } from "@/components/ui/button";
 import { listeux } from "@/data/listeux";
+import Details from "@/layout/Details";
 import { getIndexFromRotation } from "@/lib/getIndexFromRotation";
-import Lottie from "lottie-react";
 
 import { useRouter } from "next/navigation";
 
@@ -30,24 +29,11 @@ const ListPage = ({ params }: { params: { index: string } }) => {
           logo_offset={120}
           logo_size={40}
         />
-        <div className="relative w-full flex justify-center">
-          {showDetails && (
-            <Lottie
-              animationData={animation}
-              loop={false}
-              autoPlay
-              className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            />
-          )}
-          <div className="flex items-center flex-col">
-            <span className="text-3xl text-center font-extrabold">
-              {showDetails ? listeux[listIndex][index]?.name : "\u00a0"}
-            </span>
-            <span className="text-lg text-secondary-foreground text-center">
-              {showDetails ? listeux[listIndex][index]?.tel : "\u00a0"}
-            </span>
-          </div>
-        </div>
+        <Details
+          title={listeux[listIndex][index]?.name}
+          subtitle={listeux[listIndex][index]?.tel}
+          show={showDetails}
+        />
         <div className="flex flex-col gap-4">
           <LaunchButton
             onClick={tournerRoue}

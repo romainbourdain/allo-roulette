@@ -1,13 +1,12 @@
 "use client";
 
-import animation from "@/app/animation.json";
 import LaunchButton from "@/components/buttons/LaunchButton";
 import RoueDeLaFortune from "@/components/roue/Roue";
 import { useWheel } from "@/components/roue/useWheel";
 import { Button } from "@/components/ui/button";
 import { listes } from "@/data/listes";
+import Details from "@/layout/Details";
 import { getIndexFromRotation } from "@/lib/getIndexFromRotation";
-import Lottie from "lottie-react";
 
 import { useRouter } from "next/navigation";
 
@@ -27,19 +26,7 @@ const ListPage = () => {
           logo_offset={120}
           logo_size={75}
         />
-        <div className="relative w-full flex justify-center">
-          {showDetails && (
-            <Lottie
-              animationData={animation}
-              loop={false}
-              autoPlay
-              className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            />
-          )}
-          <span className="text-3xl text-center font-extrabold">
-            {showDetails ? listes[index]?.name : "\u00a0"}
-          </span>
-        </div>
+        <Details show={showDetails} title={listes[index]?.name} />
         <div className="flex flex-col gap-4">
           <LaunchButton
             onClick={tournerRoue}
