@@ -4,7 +4,17 @@ import animation from "@/app/animation.json";
 import RoueDeLaFortune from "@/components/roue/Roue";
 import { useWheel } from "@/components/roue/useWheel";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { listes } from "@/data/listes";
+import { DialogClose } from "@radix-ui/react-dialog";
 import Lottie from "lottie-react";
 
 import { useRouter } from "next/navigation";
@@ -19,6 +29,11 @@ const ListPage = () => {
           (((rotation + 180 / listes.length) % 360) * listes.length) / 360
         )
       : undefined;
+
+  const handleStart = () => {
+    if (isSpinning || rotation) return;
+    tournerRoue();
+  };
   return (
     <div className="w-full h-full flex items-center justify-center">
       <div className="flex flex-col gap-12">
@@ -43,14 +58,47 @@ const ListPage = () => {
           </span>
         </div>
         <div className="flex flex-col gap-4">
-          <Button
-            variant="secondary"
-            className="text-xl"
-            onClick={tournerRoue}
-            disabled={isSpinning}
-          >
-            Lancer la roue
-          </Button>
+          {index ? (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  variant="secondary"
+                  className="text-xl"
+                  onClick={handleStart}
+                  disabled={isSpinning}
+                >
+                  Lancer la roue
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Relancer la roue</DialogTitle>
+                  <DialogDescription>
+                    Êtes vous sûr de vouloir relancer la roue ?
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button variant="secondary">Annuler</Button>
+                  </DialogClose>
+                  <DialogClose asChild>
+                    <Button variant="default" onClick={tournerRoue}>
+                      Relancer la roue
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          ) : (
+            <Button
+              variant="secondary"
+              className="text-xl"
+              onClick={handleStart}
+              disabled={isSpinning}
+            >
+              Lancer la roue
+            </Button>
+          )}
           <div className="flex gap-2 w-full">
             <Button
               variant="secondary"
