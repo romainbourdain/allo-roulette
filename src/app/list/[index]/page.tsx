@@ -1,20 +1,13 @@
 "use client";
 
 import animation from "@/app/animation.json";
+import HomeButton from "@/components/buttons/HomeButton";
+import LaunchButton from "@/components/buttons/LaunchButton";
 import RoueDeLaFortune from "@/components/roue/Roue";
 import { useWheel } from "@/components/roue/useWheel";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { listeux } from "@/data/listeux";
+import { getIndexFromRotation } from "@/lib/getIndexFromRotation";
 import Lottie from "lottie-react";
 
 import { useRouter } from "next/navigation";
@@ -24,19 +17,8 @@ const ListPage = ({ params }: { params: { index: string } }) => {
   const listIndex = Number(params.index);
   const { wheelRef, tournerRoue, rotation, isSpinning } = useWheel();
 
-  const index =
-    !isSpinning && rotation
-      ? Math.floor(
-          (((rotation + 180 / listeux[listIndex].length) % 360) *
-            listeux[listIndex].length) /
-            360
-        )
-      : undefined;
-
-  const handleStart = () => {
-    if (isSpinning || rotation) return;
-    tournerRoue();
-  };
+  const index = getIndexFromRotation(rotation, listeux[listIndex].length);
+  const showDetails = index >= 0 && !isSpinning;
 
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -49,7 +31,7 @@ const ListPage = ({ params }: { params: { index: string } }) => {
           logo_size={40}
         />
         <div className="relative w-full flex justify-center">
-          {index !== undefined && (
+          {showDetails && (
             <Lottie
               animationData={animation}
               loop={false}
@@ -59,55 +41,19 @@ const ListPage = ({ params }: { params: { index: string } }) => {
           )}
           <div className="flex items-center flex-col">
             <span className="text-3xl text-center font-extrabold">
-              {index !== undefined ? listeux[listIndex][index]?.name : "\u00a0"}
+              {showDetails ? listeux[listIndex][index]?.name : "\u00a0"}
             </span>
             <span className="text-lg text-secondary-foreground text-center">
-              {index !== undefined ? listeux[listIndex][index]?.tel : "\u00a0"}
+              {showDetails ? listeux[listIndex][index]?.tel : "\u00a0"}
             </span>
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          {index ? (
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  variant="secondary"
-                  className="text-xl"
-                  onClick={handleStart}
-                  disabled={isSpinning}
-                >
-                  Lancer la roue
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle>Relancer la roue</DialogTitle>
-                  <DialogDescription>
-                    Êtes vous sûr de vouloir relancer la roue ?
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
-                  <DialogClose asChild>
-                    <Button variant="secondary">Annuler</Button>
-                  </DialogClose>
-                  <DialogClose asChild>
-                    <Button variant="default" onClick={tournerRoue}>
-                      Relancer la roue
-                    </Button>
-                  </DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          ) : (
-            <Button
-              variant="secondary"
-              className="text-xl"
-              onClick={handleStart}
-              disabled={isSpinning}
-            >
-              Lancer la roue
-            </Button>
-          )}
+          <LaunchButton
+            onClick={tournerRoue}
+            first={!showDetails}
+            disabled={isSpinning}
+          />
           <div className="flex gap-2 w-full">
             <Button
               variant="secondary"
@@ -116,13 +62,7 @@ const ListPage = ({ params }: { params: { index: string } }) => {
             >
               Précédent
             </Button>
-            <Button
-              variant="secondary"
-              className="text-xl flex-1"
-              onClick={() => router.push("/")}
-            >
-              Accueil
-            </Button>
+            <HomeButton className="text-xl flex-1" />
           </div>
         </div>
       </div>
