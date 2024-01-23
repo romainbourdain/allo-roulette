@@ -1,13 +1,8 @@
 "use client";
 
+import { dataType } from "@/types/Data";
 import Image from "next/image";
 import { LegacyRef } from "react";
-
-type element = {
-  name: string;
-  logo_url: string;
-  tel?: string;
-};
 
 const RoueDeLaFortune = ({
   wheelRef,
@@ -16,7 +11,7 @@ const RoueDeLaFortune = ({
   logo_size,
 }: {
   wheelRef: LegacyRef<HTMLDivElement> | undefined;
-  data: element[];
+  data: dataType;
   logo_offset: number;
   logo_size: number;
 }) => {

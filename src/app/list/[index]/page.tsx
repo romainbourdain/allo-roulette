@@ -7,17 +7,16 @@ import { useWheel } from "@/components/roue/useWheel";
 import { Button } from "@/components/ui/button";
 import { listeux } from "@/data/listeux";
 import Details from "@/layout/Details";
-import { getIndexFromRotation } from "@/lib/getIndexFromRotation";
 
 import { useRouter } from "next/navigation";
 
 const ListPage = ({ params }: { params: { index: string } }) => {
   const router = useRouter();
   const listIndex = Number(params.index);
-  const { wheelRef, tournerRoue, rotation, isSpinning } = useWheel();
 
-  const index = getIndexFromRotation(rotation, listeux[listIndex].length);
-  const showDetails = index >= 0 && !isSpinning;
+  const { wheelRef, tournerRoue, isSpinning, index, showDetails } = useWheel(
+    listeux[listIndex]
+  );
 
   return (
     <div className="w-full h-full flex items-center justify-center">

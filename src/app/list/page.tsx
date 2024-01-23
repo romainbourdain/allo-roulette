@@ -6,16 +6,14 @@ import { useWheel } from "@/components/roue/useWheel";
 import { Button } from "@/components/ui/button";
 import { listes } from "@/data/listes";
 import Details from "@/layout/Details";
-import { getIndexFromRotation } from "@/lib/getIndexFromRotation";
 
 import { useRouter } from "next/navigation";
 
 const ListPage = () => {
   const router = useRouter();
-  const { wheelRef, tournerRoue, rotation, isSpinning } = useWheel();
+  const { wheelRef, tournerRoue, isSpinning, index, showDetails } =
+    useWheel(listes);
 
-  const index = getIndexFromRotation(rotation, listes.length);
-  const showDetails = index >= 0 && !isSpinning;
   return (
     <div className="w-full h-full flex items-center justify-center">
       <div className="flex flex-col gap-12">

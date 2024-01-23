@@ -1,6 +1,8 @@
+import { getIndexFromRotation } from "@/lib/getIndexFromRotation";
+import { dataType } from "@/types/Data";
 import { useRef, useState } from "react";
 
-export const useWheel = () => {
+export const useWheel = (data: dataType) => {
   const [rotation, setRotation] = useState<number | undefined>(undefined);
   const [isSpinning, setIsSpinning] = useState(false);
   const wheelRef = useRef(null);
@@ -37,5 +39,8 @@ export const useWheel = () => {
     }, 3000);
   };
 
-  return { wheelRef, tournerRoue, rotation, isSpinning };
+  const index = getIndexFromRotation(rotation, data.length);
+  const showDetails = index >= 0 && !isSpinning;
+
+  return { wheelRef, tournerRoue, isSpinning, index, showDetails };
 };
