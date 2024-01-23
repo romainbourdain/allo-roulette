@@ -1,6 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 
 const Number = ({ value }: { value: number }) => {
@@ -17,16 +24,22 @@ const HomePage = () => {
     <div className="w-full h-full flex items-center justify-center">
       <div className="flex flex-col gap-12">
         <h1 className="text-5xl font-bold text-center">Allo Roulette</h1>
-        <div className="flex flex-col items-start gap-5 border-secondary dark:border dark:bg-transparent bg-secondary rounded-xl p-10">
-          <div className="flex items-center gap-2">
-            <Number value={1} />
-            Choix de la liste
-          </div>
-          <div className="flex items-center gap-2">
-            <Number value={2} />
-            Choix de la personne à appeler
-          </div>
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Comment ça marche ?</CardTitle>
+            <CardDescription>Appelez un listeux au hasard</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <Number value={1} />
+              Choix de la liste
+            </div>
+            <div className="flex items-center gap-2">
+              <Number value={2} />
+              Choix de la personne à appeler
+            </div>
+          </CardContent>
+        </Card>
         <Button
           variant="secondary"
           className="text-xl"
