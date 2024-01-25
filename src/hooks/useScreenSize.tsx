@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 
 export const useScreenSize = () => {
   const [dimensions, setDimensions] = useState<{
-    width: number | undefined;
-    height: number | undefined;
-  }>({ width: undefined, height: undefined });
+    width: number;
+    height: number;
+  }>({ width: 0, height: 0 });
 
   useEffect(() => {
-    const handleResize = () => {
-      setDimensions({ ...window.screen });
-    };
+    const handleResize = () => setDimensions({ ...window.screen });
 
     window.addEventListener("resize", handleResize);
 

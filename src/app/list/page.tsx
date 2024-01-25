@@ -15,8 +15,6 @@ const ListPage = () => {
   const { wheelRef, tournerRoue, isSpinning, index, showDetails } =
     useWheel(listes);
   const { width } = useScreenSize();
-  
-  if (width === undefined) return null;
 
   const logoOffset = width > 768 ? 120 : 100;
 
