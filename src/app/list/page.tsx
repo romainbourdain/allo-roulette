@@ -1,11 +1,12 @@
 "use client";
 
 import LaunchButton from "@/components/buttons/LaunchButton";
-import RoueDeLaFortune from "@/components/roue/Roue";
-import { useWheel } from "@/components/roue/useWheel";
 import { Button } from "@/components/ui/button";
 import { listes } from "@/data/listes";
+import { useScreenSize } from "@/hooks/useScreenSize";
 import Details from "@/layout/Details";
+import RoueDeLaFortune from "@/layout/roue/Roue";
+import { useWheel } from "@/layout/roue/useWheel";
 
 import { useRouter } from "next/navigation";
 
@@ -13,6 +14,8 @@ const ListPage = () => {
   const router = useRouter();
   const { wheelRef, tournerRoue, isSpinning, index, showDetails } =
     useWheel(listes);
+  const { width } = useScreenSize();
+  const logoOffset = width > 768 ? 120 : 100;
 
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -21,7 +24,7 @@ const ListPage = () => {
         <RoueDeLaFortune
           wheelRef={wheelRef}
           data={listes}
-          logo_offset={120}
+          logo_offset={logoOffset}
           logo_size={75}
         />
         <Details show={showDetails} title={listes[index]?.name} />

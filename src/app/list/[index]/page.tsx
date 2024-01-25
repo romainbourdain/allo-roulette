@@ -2,11 +2,11 @@
 
 import HomeButton from "@/components/buttons/HomeButton";
 import LaunchButton from "@/components/buttons/LaunchButton";
-import RoueDeLaFortune from "@/components/roue/Roue";
-import { useWheel } from "@/components/roue/useWheel";
 import { Button } from "@/components/ui/button";
 import { listeux } from "@/data/listeux";
 import Details from "@/layout/Details";
+import RoueDeLaFortune from "@/layout/roue/Roue";
+import { useWheel } from "@/layout/roue/useWheel";
 
 import { useRouter } from "next/navigation";
 

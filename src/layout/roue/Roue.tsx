@@ -1,5 +1,6 @@
 "use client";
 
+import { useScreenSize } from "@/hooks/useScreenSize";
 import { dataType } from "@/types/Data";
 import Image from "next/image";
 import { LegacyRef } from "react";
@@ -16,7 +17,10 @@ const RoueDeLaFortune = ({
   logo_size: number;
 }) => {
   const list_length = data.length;
-  const pizza_size = 350;
+  const { width } = useScreenSize();
+
+  const pizza_size = width > 768 ? 350 : 300;
+
   return (
     <div className="relative">
       <div className="bg-red-500 w-[30px] h-[50px] absolute z-10 top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 [clip-path:polygon(50%_100%,0%_0%,100%_0%)]"></div>
