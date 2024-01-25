@@ -1,4 +1,4 @@
-import animation from "@/app/animation.json";
+import animation from "@/assets/animations/confetti.json";
 import Lottie from "lottie-react";
 
 const Details = ({
