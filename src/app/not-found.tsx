@@ -18,7 +18,7 @@ const Notfound = () => {
         </div>
         <div className="flex flex-col gap-2">
           <div>
-            <h1 className="text-3xl">404</h1>
+            <h1 className="text-3xl font-bold">404</h1>
             <h2 className="text-xl">
               Oh oh ! La page recherchée n{"'"}existe pas
             </h2>

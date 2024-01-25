@@ -13,10 +13,18 @@ import { useRouter } from "next/navigation";
 const ListPage = ({ params }: { params: { index: string } }) => {
   const router = useRouter();
   const listIndex = Number(params.index);
+  const data =
+    isNaN(listIndex) || listIndex < 0 || listIndex >= 4
+      ? listeux[0]
+      : listeux[listIndex];
 
-  const { wheelRef, tournerRoue, isSpinning, index, showDetails } = useWheel(
-    listeux[listIndex]
-  );
+  const { wheelRef, tournerRoue, isSpinning, index, showDetails } =
+    useWheel(data);
+
+  if (isNaN(listIndex) || listIndex < 0 || listIndex >= 4) {
+    router.push("/not-found");
+    return null;
+  }
 
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -24,13 +32,13 @@ const ListPage = ({ params }: { params: { index: string } }) => {
         <h1 className="text-5xl font-bold text-center">Allo Roulette</h1>
         <RoueDeLaFortune
           wheelRef={wheelRef}
-          data={listeux[listIndex]}
+          data={data}
           logo_offset={120}
           logo_size={40}
         />
         <Details
-          title={listeux[listIndex][index]?.name}
-          subtitle={listeux[listIndex][index]?.tel}
+          title={data[index]?.name}
+          subtitle={data[index]?.tel}
           show={showDetails}
         />
         <div className="flex flex-col gap-4">
