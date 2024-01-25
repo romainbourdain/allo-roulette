@@ -19,6 +19,8 @@ const RoueDeLaFortune = ({
   const list_length = data.length;
   const { width } = useScreenSize();
 
+  if (width === undefined) return null;
+
   const pizza_size = width > 768 ? 350 : 300;
 
   return (
