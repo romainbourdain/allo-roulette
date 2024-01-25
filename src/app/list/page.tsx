@@ -23,6 +23,7 @@ const ListPage = () => {
       <div className="flex flex-col gap-12">
         <h1 className="text-5xl font-bold text-center">Allo Roulette</h1>
         <RoueDeLaFortune
+          isSpinning={isSpinning}
           wheelRef={wheelRef}
           data={listes}
           logo_offset={logoOffset}

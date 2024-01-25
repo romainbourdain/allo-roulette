@@ -33,6 +33,7 @@ const ListPage = ({ params }: { params: { index: string } }) => {
         <RoueDeLaFortune
           wheelRef={wheelRef}
           data={data}
+          isSpinning={isSpinning}
           logo_offset={120}
           logo_size={40}
         />
