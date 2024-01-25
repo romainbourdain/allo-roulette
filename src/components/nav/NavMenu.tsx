@@ -23,7 +23,7 @@ const NavMenu = () => {
         <DropdownMenuLabel>Choix de la liste</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownLink href="/list/0">Old{"'"}elpasliste</DropdownLink>
-        <DropdownLink href="/list/1">Asterliste</DropdownLink>
+        <DropdownLink href="/list/1">Pyraliste</DropdownLink>
         <DropdownLink href="/list/2">HarryPotliste</DropdownLink>
         <DropdownLink href="/list/3">Ségoliste</DropdownLink>
       </DropdownMenuContent>
