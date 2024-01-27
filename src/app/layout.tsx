@@ -1,6 +1,7 @@
 import Footer from "@/components/foot/Footer";
 import Navbar from "@/components/nav/Navbar";
 import ThemeProvider from "@/components/theme/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner";
 import clsx from "clsx";
 import "./globals.css";
 
@@ -26,6 +27,7 @@ export default function RootLayout({
             </div>
             <Footer />
           </div>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

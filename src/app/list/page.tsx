@@ -29,7 +29,11 @@ const ListPage = () => {
           logo_offset={logoOffset}
           logo_size={75}
         />
-        <Details show={showDetails} title={listes[index]?.name} />
+        <Details
+          show={showDetails}
+          title={listes[index]?.name}
+          isSubtitle={false}
+        />
         <div className="flex flex-col gap-4">
           <LaunchButton
             onClick={tournerRoue}
